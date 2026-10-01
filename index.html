@@ -1035,7 +1035,7 @@
     .btn-konfirmasi:disabled { background: #e0b86e; cursor: not-allowed; transform: none; }
 
     /* =========================================
-       RSVP (KACA GELAP LUXURY)
+       RSVP (TEMA KARTU ELEGANT BARU)
        ========================================= */
     #rsvp {
       display: flex;
@@ -1045,22 +1045,22 @@
     
     .RSVP-title {
       font-family: 'Great Vibes', cursive; 
-      font-size: 38px; 
-      color: #f3a302; 
+      font-size: 42px; 
+      color: #7b1f26; 
       margin-bottom: 30px;
       text-align: center;
       width: 100%;
       display: block;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
     }
     
     .rsvp-container {
-      background: rgba(0, 0, 0, 0.4);
-      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); 
-      border: 1px solid rgba(243, 163, 2, 0.5); 
-      padding: 30px; border-radius: 20px; max-width: 600px; margin: 0 auto; width: 100%;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-      color: #ffffff;
+      background: #fffdfa; /* Putih elegan sedikit ivory */
+      border: 2px solid #eaddcf; /* Border soft gold/beige */
+      padding: 35px 30px; 
+      border-radius: 20px; 
+      max-width: 600px; margin: 0 auto; width: 100%;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+      color: #333333;
       -webkit-backface-visibility: hidden; transform: translateZ(0);
     }
     
@@ -1068,9 +1068,11 @@
       width: 100%; 
       max-width: 100%; 
       box-sizing: border-box; 
-      padding: 12px; margin-top: 10px; border: 1px solid rgba(243,163,2,0.3);
-      border-radius: 10px; font-size: 16px;
+      padding: 14px; margin-top: 12px; 
+      border: 1px solid #dcdcdc;
+      border-radius: 10px; font-size: 15px;
       font-family: 'Poppins', sans-serif;
+      transition: all 0.3s ease;
     }
 
     #rsvp textarea { 
@@ -1080,16 +1082,28 @@
       overflow: hidden; 
     } 
 
-    /* === UBAH JADI PUTIH BERSIH === */
     #rsvp input[type="text"], #rsvp textarea { 
-      background: #ffffff; 
+      background: #f9f9f9; 
       color: #333; 
+    }
+
+    #rsvp input[type="text"]:focus, #rsvp textarea:focus { 
+      background: #ffffff; 
+      border-color: #7b1f26;
+      box-shadow: 0 0 5px rgba(123, 31, 38, 0.2);
+      outline: none;
     }
     
     #rsvp button {
-      background: rgba(243, 163, 2, 0.85); color: #ffffff; font-weight: 600; cursor: pointer; transition: 0.3s; border: none;
+      background: #7b1f26; 
+      color: #ffffff; 
+      font-weight: 600; 
+      cursor: pointer; 
+      border: none;
+      margin-top: 20px;
+      letter-spacing: 1px;
     }
-    #rsvp button:hover { background: rgba(243, 163, 2, 1); transform: scale(1.02); }
+    #rsvp button:hover { background: #580b0b; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(88,11,11,0.3); }
     
     /* =========================================
        STYLE RADIO BUTTON KEHADIRAN (BARU)
@@ -1098,7 +1112,7 @@
       display: flex;
       justify-content: center;
       gap: 30px;
-      margin-top: 15px;
+      margin-top: 20px;
       margin-bottom: 10px;
     }
     
@@ -1108,8 +1122,9 @@
       gap: 8px;
       cursor: pointer;
       font-family: 'Poppins', sans-serif;
-      font-size: 15px;
-      color: #ffffff;
+      font-size: 14px;
+      color: #333333;
+      font-weight: 500;
       padding: 5px; 
       -webkit-tap-highlight-color: transparent;
     }
@@ -1121,16 +1136,16 @@
     .radio-custom {
       width: 22px;
       height: 22px;
-      border: 2px solid rgba(243, 163, 2, 0.8);
+      border: 2px solid #cccccc;
       border-radius: 50%;
       display: inline-block;
       position: relative;
       transition: all 0.3s ease;
-      background: rgba(255, 255, 255, 0.2);
+      background: #ffffff;
     }
     
     .radio-label input[type="radio"]:checked + .radio-custom {
-      border-color: #f3a302;
+      border-color: #7b1f26;
       background: #ffffff;
     }
     
@@ -1142,32 +1157,36 @@
       transform: translate(-50%, -50%);
       width: 12px;
       height: 12px;
-      background: #f3a302;
+      background: #7b1f26;
       border-radius: 50%;
     }
 
     .ucapan-list { margin-top: 30px; text-align: left; }
     
-    /* === UBAH JADI PUTIH BERSIH === */
+    /* === DAFTAR UCAPAN ELEGANT === */
     .ucapan-item {
       background: #ffffff; 
-      border-radius: 12px; padding: 15px;
-      margin-bottom: 10px; animation: fadeIn 0.6s ease;
-      color: #333; border-left: 4px solid #f3a302;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
+      border-radius: 12px; padding: 18px;
+      margin-bottom: 12px; animation: fadeIn 0.6s ease;
+      color: #444; border-left: 4px solid #7b1f26;
+      border: 1px solid #f0f0f0;
+      border-left: 5px solid #7b1f26;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.03); 
     }
-    .ucapan-item small { opacity: 0.8; font-size: 13px; color: #5a6e82; }
+    .ucapan-item strong { color: #7b1f26; font-size: 15px; }
+    .ucapan-item p { font-size: 14px; margin-top: 8px; margin-bottom: 8px; line-height: 1.5; }
+    .ucapan-item small { opacity: 0.8; font-size: 12px; color: #888; display: block; }
 
     .pagination-container {
-      display: flex; justify-content: center; gap: 8px; margin-top: 20px; flex-wrap: wrap;
+      display: flex; justify-content: center; gap: 8px; margin-top: 25px; flex-wrap: wrap;
     }
     .page-btn {
-      background: rgba(255, 255, 255, 0.8) !important; border: 1px solid #f3a302 !important;
-      color: #354a5f !important; padding: 6px 12px !important; border-radius: 6px !important;
+      background: #ffffff !important; border: 1px solid #dcdcdc !important;
+      color: #333333 !important; padding: 6px 14px !important; border-radius: 6px !important;
       cursor: pointer; font-family: 'Poppins', sans-serif !important; font-size: 14px !important;
       transition: all 0.3s ease; width: auto !important; margin-top: 0 !important;
     }
-    .page-btn.active, .page-btn:hover { background: #f3a302 !important; color: #ffffff !important; font-weight: bold; }
+    .page-btn.active, .page-btn:hover { background: #7b1f26 !important; border-color: #7b1f26 !important; color: #ffffff !important; font-weight: bold; }
 
     @keyframes fadeIn {
       from {opacity: 0; transform: translateY(10px);}
@@ -1175,7 +1194,7 @@
     }
 
     #notif {
-      position: fixed; top: 20px; right: 20px; background: #354a5f; color: #ffffff;
+      position: fixed; top: 20px; right: 20px; background: #7b1f26; color: #ffffff;
       padding: 15px 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);
       opacity: 0; transform: translateY(-20px); transition: all 0.4s ease;
       font-weight: 600; z-index: 9999;
@@ -1622,7 +1641,7 @@
 </section>
 
 <!-- =========================================
-     RSVP & UCAPAN BARU (RADIO BUTTON SEJAJAR)
+     RSVP & UCAPAN BARU (TEMA KARTU ELEGANT)
      ========================================= -->
 <section id="rsvp" class="section-parallax">
   <div class="rsvp-container">
@@ -1650,7 +1669,7 @@
     
     <!-- Wadah ucapan disembunyikan secara default (display: none) -->
     <div class="ucapan-list" id="ucapanList" style="display: none;">
-      <h3 style="margin-top:30px; color: #f3a302; text-align: left;">Ucapan & Kehadiran</h3>
+      <h3 style="margin-top:30px; margin-bottom:15px; color: #7b1f26; text-align: left; font-size: 18px;">Ucapan & Kehadiran</h3>
       <div id="list"></div>
       <div id="pagination" class="pagination-container"></div>
     </div>
