@@ -1104,7 +1104,100 @@
       letter-spacing: 1px;
     }
     #rsvp button:hover { background: #580b0b; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(88,11,11,0.3); }
-    
+
+    /* =========================================
+   POP-UP CUSTOM ALERT (TEMA ELEGANT)
+   ========================================= */
+.custom-alert-overlay {
+  position: fixed; 
+  top: 0; 
+  left: 0; 
+  width: 100%; 
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex; 
+  justify-content: center; 
+  align-items: center;
+  z-index: 999999; 
+  opacity: 0; 
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.custom-alert-overlay.show { 
+  opacity: 1; 
+  visibility: visible; 
+}
+
+.custom-alert-box {
+  background: #fffdfa; 
+  border: 2px solid #eaddcf; 
+  color: #333333; 
+  padding: 30px 25px; 
+  border-radius: 20px;
+  text-align: center; 
+  max-width: 90%; 
+  width: 320px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+  transform: scale(0.8); 
+  transition: transform 0.3s ease;
+}
+
+.custom-alert-overlay.show .custom-alert-box { 
+  transform: scale(1); 
+}
+
+.custom-alert-icon { 
+  font-size: 40px; 
+  margin-bottom: 10px; 
+}
+
+.custom-alert-title { 
+  margin: 0 0 10px 0; 
+  font-size: 22px; 
+  font-weight: bold; 
+  color: #7b1f26; 
+}
+
+#customAlertText { 
+  font-size: 14px; 
+  line-height: 1.5; 
+  margin-bottom: 15px; 
+  color: #555; 
+}
+
+.custom-alert-timer { 
+  font-size: 12px; 
+  color: #888; 
+  margin-bottom: 20px; 
+}
+
+.custom-alert-timer span { 
+  font-weight: bold; 
+  color: #7b1f26; 
+  font-size: 14px; 
+}
+
+.custom-alert-btn {
+  background: #7b1f26; 
+  color: #ffffff; 
+  border: none;
+  padding: 10px 24px; 
+  border-radius: 10px; 
+  font-size: 14px;
+  font-family: 'Poppins', sans-serif; 
+  font-weight: 600;
+  cursor: pointer; 
+  transition: all 0.3s ease;
+  letter-spacing: 1px;
+}
+
+.custom-alert-btn:hover { 
+  background: #580b0b; 
+  transform: translateY(-2px); 
+  box-shadow: 0 5px 15px rgba(88,11,11,0.3); 
+}
+
     /* =========================================
        STYLE RADIO BUTTON KEHADIRAN (BARU)
        ========================================= */
@@ -1676,7 +1769,21 @@
   </div>
 </section>
 
-<div id="notif">🎉 Terima kasih atas ucapannya!</div>
+<!-- POP-UP ALERT CUSTOM TEMA ELEGANT -->
+<div id="customAlert" class="custom-alert-overlay">
+  <div class="custom-alert-box">
+    <div class="custom-alert-icon">✨</div>
+    <h3 class="custom-alert-title">Terima Kasih!</h3>
+    <p id="customAlertText">RSVP dan ucapan Anda berhasil dikirim.</p>
+    
+    <div id="customAlertTimer" class="custom-alert-timer">
+      Menutup otomatis dalam <span id="timerCount">5</span> detik
+    </div>
+    
+    <button type="button" class="custom-alert-btn" onclick="closeCustomAlert()">Tutup</button>
+  </div>
+</div>
+
 
 <audio id="bgMusic" loop preload="metadata">
   <source src="music.mp3" type="audio/mpeg">
@@ -2010,7 +2117,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const itemsPerPage = 5; 
 
   const notif = document.getElementById("notif");
-  const showNotif = (text = "🎉 Terima kasih atas ucapannya!") => {
+  showCustomAlert("Terima kasih atas RSVP dan doa restu yang Anda berikan! 🙏✨", 5);
     notif.textContent = text;
     notif.classList.add("show");
     setTimeout(() => notif.classList.remove("show"), 3000);
