@@ -1838,26 +1838,58 @@
   </div>
 </div>
 
-<script>
-// === FUNGSI CUSTOM ALERT POP-UP ===
-function showCustomAlert(msg) {
-  document.getElementById('customAlertText').innerText = msg;
-  document.getElementById('customAlert').classList.add('show');
+  <script>
+// === FUNGSI CUSTOM ALERT POP-UP DENGAN TIMER ===
+let alertTimerInterval = null;
+
+function showCustomAlert(msg, seconds = 5) {
+  const alertBox = document.getElementById('customAlert');
+  const alertText = document.getElementById('customAlertText');
+  const timerCount = document.getElementById('timerCount');
+  
+  if (!alertBox) return; // Mencegah error jika HTML belum siap
+
+  if (alertTimerInterval) clearInterval(alertTimerInterval);
+
+  if (alertText) alertText.innerText = msg;
+  
+  let timeLeft = seconds;
+  if (timerCount) timerCount.textContent = timeLeft;
+
+  alertBox.classList.add('show');
+
+  alertTimerInterval = setInterval(() => {
+    timeLeft--;
+    if (timerCount) timerCount.textContent = timeLeft;
+
+    if (timeLeft <= 0) {
+      closeCustomAlert();
+    }
+  }, 1000);
 }
 
 function closeCustomAlert() {
-  document.getElementById('customAlert').classList.remove('show');
+  const alertBox = document.getElementById('customAlert');
+  if (alertBox) alertBox.classList.remove('show');
+  
+  if (alertTimerInterval) {
+    clearInterval(alertTimerInterval);
+    alertTimerInterval = null;
+  }
 }
 
+// === UTAMA ===
 document.addEventListener("DOMContentLoaded", () => {
   const scriptURL = "https://script.google.com/macros/s/AKfycbwIUvUVuCIwIRVwOfscn2PTMoA0dRWAXSQ3tokJ8Wkx8ghpAaaT7qaAU4rMIM67lMht/exec";
   const KODE_KLIEN = "NADILA_ERIK";
 
+  // Animasi Scroll
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => entry.target.classList.toggle('muncul', entry.isIntersecting));
   }, { threshold: 0.15 });
   document.querySelectorAll('.animasi-scroll').forEach(el => observer.observe(el));
 
+  // Salin Rekening
   document.addEventListener("click", function (e) {
     const btn = e.target.closest(".copy-btn");
     if (!btn) return;
@@ -1869,7 +1901,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function salin(nomor) {
     if (navigator.clipboard && window.isSecureContext) {
       navigator.clipboard.writeText(nomor).then(() => {
-        showCustomAlert("Nomor rekening berhasil disalin:\n" + nomor);
+        showCustomAlert("Nomor rekening berhasil disalin:\n" + nomor, 3);
       });
     } else {
       const t = document.createElement("textarea");
@@ -1878,7 +1910,7 @@ document.addEventListener("DOMContentLoaded", () => {
       t.select();
       document.execCommand("copy");
       t.remove();
-      showCustomAlert("Nomor rekening berhasil disalin:\n" + nomor);
+      showCustomAlert("Nomor rekening berhasil disalin:\n" + nomor, 3);
     }
   }
 
@@ -1906,6 +1938,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // Nama Tamu dari URL
   const params = new URLSearchParams(window.location.search);
   const namaURL = params.get("to");
   const namaTamu = document.getElementById("namaTamu");
@@ -1918,6 +1951,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // Kontrol Video & Audio
   const openBtn = document.getElementById("openBtn");
   const cover = document.getElementById("cover");
   const invitation = document.getElementById("invitation1") || document.querySelector(".invitation1");
@@ -1945,42 +1979,35 @@ document.addEventListener("DOMContentLoaded", () => {
       
       cover.classList.add("cover-slide-up");
       
-            if (bgVideo) {
-        bgVideo.muted = true; // Paksa bisu dari sistem agar Edge percaya
-        bgVideo.currentTime = 0; // Pastikan video mulai dari detik 0
+      if (bgVideo) {
+        bgVideo.muted = true;
+        bgVideo.currentTime = 0;
         let paksaPlay = bgVideo.play();
         
         if (paksaPlay !== undefined) {
           paksaPlay.catch(error => {
             console.warn("Edge menahan video, memaksa muat ulang...", error);
-            bgVideo.load(); // Pancing ulang mesin videonya
-            bgVideo.play(); // Tembak play sekali lagi
+            bgVideo.load();
+            bgVideo.play();
           });
         }
       }
-
       
       isOpened = true;
       safePlay(); 
       
-      setTimeout(() => {
-        cover.style.display = "none";
-      }, 1200); 
+      setTimeout(() => { cover.style.display = "none"; }, 1200); 
     });
   }
 
   if (bgVideo) {
     bgVideo.addEventListener("timeupdate", () => {
-      if (bgVideo.currentTime >= 4 && videoOverlay) {
-        videoOverlay.classList.add("show-frame");
-      }
+      if (bgVideo.currentTime >= 4 && videoOverlay) videoOverlay.classList.add("show-frame");
       if (bgVideo.currentTime >= 11 && !menuShown) {
         if (menu) menu.classList.add("show");
         menuShown = true;
       }
-      if (bgVideo.currentTime >= 13.9) {
-        bgVideo.pause();
-      }
+      if (bgVideo.currentTime >= 13.9) bgVideo.pause();
     });
   }
 
@@ -1994,7 +2021,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // === COUNTDOWN ACARA TERBARU DENGAN EFEK DINAMIS ===
   function countdown() {
-    const target = new Date(2026, 10, 3, 9, 0, 0).getTime();
+    const target = new Date(2026, 10, 3, 9, 0, 0).getTime(); // Note: Bulan 10 adalah November
     const endEvent = new Date(2026, 10, 4, 0, 0, 0).getTime();
     const now = Date.now();
     const diff = target - now;
@@ -2077,6 +2104,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  // Lightbox Galeri
   const lightboxTriggers = document.querySelectorAll('.lightbox-trigger');
   const galeriGridItems = document.querySelectorAll('.galeri-grid .galeri-item img');
   const lightbox = document.getElementById('lightbox');
@@ -2086,42 +2114,37 @@ document.addEventListener("DOMContentLoaded", () => {
   const nextBtn = document.querySelector('.next');
   let currentImgIndex = 0;
 
-  lightboxTriggers.forEach((img) => {
-    img.addEventListener('click', () => {
-      lightbox.style.display = 'flex';
-      lightboxImg.src = img.src;
-      currentImgIndex = Array.from(galeriGridItems).findIndex(gridImg => gridImg.src === img.src);
-      if(currentImgIndex === -1) currentImgIndex = 0; 
+  if (lightboxTriggers.length > 0 && lightbox) {
+    lightboxTriggers.forEach((img) => {
+      img.addEventListener('click', () => {
+        lightbox.style.display = 'flex';
+        lightboxImg.src = img.src;
+        currentImgIndex = Array.from(galeriGridItems).findIndex(gridImg => gridImg.src === img.src);
+        if(currentImgIndex === -1) currentImgIndex = 0; 
+      });
     });
-  });
 
-  closeBtn.addEventListener('click', () => { lightbox.style.display = 'none'; });
+    closeBtn.addEventListener('click', () => { lightbox.style.display = 'none'; });
 
-  prevBtn.addEventListener('click', () => {
-    currentImgIndex = (currentImgIndex - 1 + galeriGridItems.length) % galeriGridItems.length;
-    lightboxImg.src = galeriGridItems[currentImgIndex].src;
-  });
+    prevBtn.addEventListener('click', () => {
+      currentImgIndex = (currentImgIndex - 1 + galeriGridItems.length) % galeriGridItems.length;
+      lightboxImg.src = galeriGridItems[currentImgIndex].src;
+    });
 
-  nextBtn.addEventListener('click', () => {
-    currentImgIndex = (currentImgIndex + 1) % galeriGridItems.length;
-    lightboxImg.src = galeriGridItems[currentImgIndex].src;
-  });
+    nextBtn.addEventListener('click', () => {
+      currentImgIndex = (currentImgIndex + 1) % galeriGridItems.length;
+      lightboxImg.src = galeriGridItems[currentImgIndex].src;
+    });
 
-  lightbox.addEventListener('click', (e) => {
-    if (e.target === lightbox) lightbox.style.display = 'none';
-  });
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) lightbox.style.display = 'none';
+    });
+  }
 
   // === RSVP & UCAPAN GOOGLE SHEET (DIPERBARUI) ===
   let allUcapan = [];
   let currentPage = 1;
   const itemsPerPage = 5; 
-
-  const notif = document.getElementById("notif");
-  showCustomAlert("Terima kasih atas RSVP dan doa restu yang Anda berikan! 🙏✨", 5);
-    notif.textContent = text;
-    notif.classList.add("show");
-    setTimeout(() => notif.classList.remove("show"), 3000);
-  };
 
   const list = document.getElementById("list");
   const paginationContainer = document.getElementById("pagination");
@@ -2133,7 +2156,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const nama = document.getElementById("nama").value.trim();
       const ucapan = document.getElementById("ucapan").value.trim();
       
-      // Ambil nilai dari radio button yang dipilih
       const kehadiranInput = document.querySelector('input[name="kehadiran"]:checked');
       const kehadiran = kehadiranInput ? kehadiranInput.value : "";
       
@@ -2161,13 +2183,17 @@ document.addEventListener("DOMContentLoaded", () => {
           headers: { 'Content-Type': 'text/plain;charset=utf-8' },
           body: JSON.stringify(payload)
         });
+        
         form.reset();
         document.getElementById("ucapan").style.height = "48px";
-        showNotif();
+        
+        // --- INI PEMANGGILAN POP-UP YANG BENAR ---
+        showCustomAlert("Terima kasih atas RSVP dan doa restu yang Anda berikan! 🙏✨", 5);
+        
         currentPage = 1; 
         loadUcapan(true);
       } catch (err) {
-        showCustomAlert("Gagal mengirim ucapan. Silakan coba lagi.");
+        showCustomAlert("Gagal mengirim ucapan. Silakan coba lagi.", 5);
       } finally {
         submitBtn.innerHTML = originalBtnText;
         submitBtn.disabled = false;
@@ -2177,16 +2203,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function renderUcapan() {
     const ucapanListContainer = document.getElementById("ucapanList");
+    if(!list || !ucapanListContainer) return;
+    
     list.innerHTML = "";
     
-    // Jika data kosong, sembunyikan area ucapan sepenuhnya
     if (allUcapan.length === 0) {
       ucapanListContainer.style.display = "none";
-      paginationContainer.innerHTML = "";
+      if(paginationContainer) paginationContainer.innerHTML = "";
       return;
     }
     
-    // Jika ada data, tampilkan areanya
     ucapanListContainer.style.display = "block";
 
     const startIndex = (currentPage - 1) * itemsPerPage;
@@ -2214,6 +2240,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function renderPagination() {
+    if(!paginationContainer) return;
     paginationContainer.innerHTML = "";
     
     const totalPages = Math.ceil(allUcapan.length / itemsPerPage);
@@ -2258,7 +2285,3 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 </script>
-    
-
-</body>
-</html>
